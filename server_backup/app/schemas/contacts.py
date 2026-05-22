@@ -25,3 +25,9 @@ class ContactPublic(ContactBase):
     updated_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class ContactMailRequest(BaseModel):
+    name: str
+    email: str
+    subject: str | None = None
+    message: str

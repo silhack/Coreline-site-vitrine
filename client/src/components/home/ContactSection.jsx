@@ -18,12 +18,12 @@ const ContactSection = () => {
 
     setIsSubmitting(true);
 
-    // Utilise l'ID de l'environnement ou le placeholder pour le développement
-    const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID || 'VOTRE_ID_FORMSPREE';
-    const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
+    // Utilise notre API de messagerie souveraine
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const CONTACT_API_URL = `${API_URL}/api/contact`;
 
     try {
-      const response = await fetch(FORMSPREE_URL, {
+      const response = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -36,10 +36,11 @@ const ContactSection = () => {
         // Le message disparaît après 5 secondes
         setTimeout(() => setIsSent(false), 5000);
       } else {
-        throw new Error("Erreur lors de l'envoi");
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.detail || "Erreur lors de l'envoi");
       }
     } catch (error) {
-      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement par email.');
+      alert(error.message || 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement par email.');
     } finally {
       setIsSubmitting(false);
     }

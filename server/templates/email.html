@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouveau Contact - Coreline Alliance</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-font-smoothing: antialiased;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; padding: 40px 10px;">
+    <tr>
+      <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid #e2e8f0;">
+          <!-- Header -->
+          <tr>
+            <td style="background-color: #1e3a8a; padding: 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: 0.5px;">Coreline Alliance</h1>
+              <p style="color: #93c5fd; margin: 5px 0 0 0; font-size: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Plateforme d'Impact</p>
+            </td>
+          </tr>
+          
+          <!-- Content Body -->
+          <tr>
+            <td style="padding: 40px 30px;">
+              <h2 style="color: #0f172a; margin: 0 0 20px 0; font-size: 18px; font-weight: 600; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px;">
+                📬 Nouveau message reçu
+              </h2>
+              
+              <p style="color: #475569; font-size: 15px; line-height: 1.6; margin-bottom: 25px;">
+                Un visiteur a soumis une demande d'échange via le formulaire de contact du site internet.
+              </p>
+
+              <!-- Sender Information Card -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f8fafc; border-radius: 8px; padding: 20px; margin-bottom: 25px; border-left: 4px solid #d97706;">
+                <tr>
+                  <td style="padding: 4px 0;"><span style="color: #64748b; font-weight: 600; font-size: 13px;">Expéditeur :</span></td>
+                  <td style="padding: 4px 0 4px 10px;"><strong style="color: #1e293b; font-size: 14px;">{{ body.name }}</strong></td>
+                </tr>
+                <tr>
+                  <td style="padding: 4px 0;"><span style="color: #64748b; font-weight: 600; font-size: 13px;">Email :</span></td>
+                  <td style="padding: 4px 0 4px 10px;"><a href="mailto:{{ body.email }}" style="color: #2563eb; text-decoration: none; font-size: 14px;">{{ body.email }}</a></td>
+                </tr>
+                <tr>
+                  <td style="padding: 4px 0;"><span style="color: #64748b; font-weight: 600; font-size: 13px;">Sujet :</span></td>
+                  <td style="padding: 4px 0 4px 10px;"><span style="color: #1e293b; font-size: 14px; font-weight: 500;">{{ body.title }}</span></td>
+                </tr>
+              </table>
+
+              <!-- Message Detail -->
+              <h3 style="color: #334155; font-size: 14px; font-weight: 600; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px;">Message :</h3>
+              <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; font-style: italic; color: #334155; font-size: 14px; line-height: 1.6; min-height: 100px;">
+                " {{ body.message }} "
+              </div>
+
+              <!-- Call to Action -->
+              <div style="margin-top: 35px; text-align: center;">
+                <a href="mailto:{{ body.email }}?subject=Re: {{ body.title }}" style="display: inline-block; background-color: #1e3a8a; color: #ffffff; font-weight: 600; font-size: 14px; padding: 12px 30px; text-decoration: none; border-radius: 6px; box-shadow: 0 4px 6px rgba(30, 58, 138, 0.15);">
+                  Répondre directement
+                </a>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+              <p style="color: #64748b; font-size: 12px; margin: 0;">Cet e-mail automatique a été envoyé depuis le serveur d'Akiba Platform.</p>
+              <p style="color: #94a3b8; font-size: 11px; margin: 5px 0 0 0;">&copy; 2026 Coreline Alliance. Tous droits réservés.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

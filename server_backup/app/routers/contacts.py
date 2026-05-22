@@ -1,10 +1,30 @@
 import uuid
-from fastapi import APIRouter, Depends, status
+import os
+from pathlib import Path
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.crud.contacts import create_contact, get_all_contacts, get_contact, update_contact, delete_contact, delete_all_contacts, send_mail
 from app.database import get_db
-from app.schemas.contacts import ContactCreate, ContactPublic, ContactUpdate
+from app.schemas.contacts import ContactCreate, ContactPublic, ContactUpdate, ContactMailRequest
 from app.dependencies import get_current_admin
+from fastapi_mail import FastMail, MessageSchema, MessageType, ConnectionConfig
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Configuration mail légère (sans BDD)
+_mail_conf = ConnectionConfig(
+    MAIL_USERNAME=os.getenv('MAIL_USERNAME', ''),
+    MAIL_PASSWORD=os.getenv('MAIL_PASSWORD', ''),
+    MAIL_FROM=os.getenv('MAIL_FROM', os.getenv('MAIL_USERNAME', '')),
+    MAIL_PORT=int(os.getenv('MAIL_PORT', 587)),
+    MAIL_SERVER=os.getenv('MAIL_SERVER', ''),
+    MAIL_STARTTLS=os.getenv('MAIL_STARTTLS', 'True').lower() == 'true',
+    MAIL_SSL_TLS=os.getenv('MAIL_SSL_TLS', 'False').lower() == 'true',
+    USE_CREDENTIALS=True if os.getenv('MAIL_PASSWORD') else False,
+    VALIDATE_CERTS=True,
+    TEMPLATE_FOLDER=Path(__file__).resolve().parent.parent / "templates"
+)
 
 # Router pour la gestion des demandes de contact
 router = APIRouter(
@@ -26,6 +46,39 @@ async def route_send_mail(contact: ContactCreate, db: Session = Depends(get_db))
     Enregistre la demande et envoie un e-mail de notification.
     """
     return await send_mail(db, contact)
+
+# POST - Public (Envoi email SANS base de données)
+@router.post("/send", status_code=status.HTTP_200_OK)
+async def route_send_contact_email(contact: ContactMailRequest):
+    """
+    Reçoit le formulaire de contact et envoie un e-mail de notification.
+    Ne nécessite PAS de base de données.
+    """
+    try:
+        template_body = {
+            "title": contact.subject or "Nouveau message de contact",
+            "name": contact.name,
+            "email": contact.email,
+            "message": contact.message
+        }
+
+        message = MessageSchema(
+            subject=f"Contact Coreline Alliance - {contact.subject or 'Nouveau message'}",
+            recipients=[os.getenv('MAIL_USERNAME', '')],
+            reply_to=[contact.email],
+            template_body={"body": template_body},
+            subtype=MessageType.html
+        )
+
+        fm = FastMail(_mail_conf)
+        await fm.send_message(message, template_name="email.html")
+
+        return {"message": "Votre message a été envoyé avec succès."}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur lors de l'envoi de l'email: {str(e)}"
+        )
 
 # GET - Protégé (Admin uniquement)
 @router.get("/", status_code=status.HTTP_200_OK, response_model=list[ContactPublic])
