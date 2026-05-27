@@ -95,7 +95,6 @@ pip freeze > requirements.txt
 ## À faire
 
 - [ ] Ajout de tests avec `pytest`
-- [ ] Dockerisation du projet
 
 
 ## Auteur

@@ -19,15 +19,7 @@ logger = logging.getLogger("mail_api")
 load_dotenv()
 
 # Configurer le Rate Limiter
-def get_real_client_ip(request: Request) -> str:
-    # Cherche d'abord si Nginx a transmis la vraie IP
-    forwarded_for = request.headers.get("X-Forwarded-For")
-    if forwarded_for:
-        # Prend la première IP de la liste (l'IP d'origine du client)
-        return forwarded_for.split(",")[0].strip()
-    return get_ip_addr(request) # Fallback local standard
-
-limiter = Limiter(key_func=get_real_client_ip)
+limiter = Limiter(key_func=get_ip_addr)
 
 app = FastAPI(
     title="Coreline Alliance Mail API",

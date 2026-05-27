@@ -1,176 +1,284 @@
-# Site Vitrine AKIBA - Application Client
+# Coreline Alliance — Site Vitrine (Frontend)
 
-Ce dossier contient l'**application frontend React** du site vitrine d'AKIBA, incluant un panneau d'administration complet pour la gestion du contenu.
+Application **React** du site vitrine de **Coreline Alliance**, une alliance internationale d'experts spécialisée dans l'investissement durable en Afrique. Le site présente les services, les solutions, l'équipe et propose un formulaire de contact connecté au backend FastAPI.
 
-## Technologies
+---
 
-- **React 19.0.0** avec **Vite 6.2.0**
-- **Tailwind CSS 4.0.15** pour le styling
-- **Framer Motion 12.6.2** pour les animations
-- **React Router 7.4.0** pour la navigation
-- **Axios 1.9.0** pour les appels API
-- **React Icons 5.5.0** pour les icônes
-- Architecture modulaire et responsive design
+## Table des Matières
 
-## Fonctionnalités Principales
+- [Aperçu](#aperçu)
+- [Stack Technique](#stack-technique)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Lancement](#lancement)
+- [Architecture du Projet](#architecture-du-projet)
+- [Pages et Routes](#pages-et-routes)
+- [Composants](#composants)
+- [SEO et Référencement](#seo-et-référencement)
+- [Sécurité Frontend](#sécurité-frontend)
+- [Build de Production](#build-de-production)
+- [Scripts Disponibles](#scripts-disponibles)
 
-### Site Public
-- Page d'accueil dynamique avec animations
-- Présentation des services et solutions d'AKIBA
-- Catalogue de produits avec pages détaillées
-- Section actualités et articles
-- Formulaire de contact
-- Pages à propos et services
-- Design responsive mobile-first
+---
 
-### Panneau d'Administration
-- **Authentification sécurisée** avec gestion de tokens
-- **Gestion des actualités** (CRUD complet avec upload d'images)
-- **Gestion des produits** (CRUD avec avantages multiples)
-- **Gestion des contacts** (visualisation et modération)
-- **Gestion des administrateurs** (création/suppression de comptes)
-- Interface intuitive avec navigation par onglets
+## Aperçu
 
-## Structure du Projet
+Le site est un **site vitrine institutionnel** pensé pour présenter l'activité de Coreline Alliance auprès d'investisseurs, partenaires et institutions. Il comprend :
 
-```
-src/
-├── components/
-│   ├── admin-panel/       # Composants du panneau d'administration
-│   │   ├── ActualitesTab.jsx    # Gestion des actualités
-│   │   ├── ProduitsTab.jsx      # Gestion des produits
-│   │   ├── ContactsTab.jsx      # Gestion des contacts
-│   │   └── AdminsTab.jsx        # Gestion des administrateurs
-│   ├── home/              # Composants page d'accueil
-│   ├── layout/            # Layout et navigation
-│   ├── contact/           # Composants contact
-│   ├── produits/          # Composants produits
-│   ├── news/              # Composants actualités
-│   └── ui/                # Composants UI réutilisables
-├── pages/                 # Pages principales de l'application
-├── context/               # Contextes React (AuthContext)
-├── services/              # Services API (axiosClient)
-├── data/                  # Données statiques et configuration
-└── utils/                 # Fonctions utilitaires
-```
+- Une page d'accueil dynamique avec animations et métriques d'impact
+- La présentation des services et solutions de l'alliance
+- Un portfolio de projets / missions
+- Une section actualités et insights
+- Un formulaire de contact professionnel relié à l'API backend
+- Des pages légales (mentions légales, politique de confidentialité)
+- Un design responsive mobile-first avec animations fluides
 
-## Panneau d'Administration - Fonctionnalités Détaillées
+---
 
-### Accès Admin
-- **URL d'accès**: `/admin`
-- **Authentification**: Token JWT stocké en localStorage
-- **Route protégée**: Redirection automatique vers login si non authentifié
+## Stack Technique
 
-### Onglets de Gestion
+| Technologie                     | Version | Rôle                                               |
+| ------------------------------- | ------- | -------------------------------------------------- |
+| **React**                       | 19.0.0  | Bibliothèque UI                                    |
+| **Vite**                        | 6.2.0   | Bundler et serveur de développement                |
+| **React Router**                | 7.14.1  | Navigation SPA                                     |
+| **Framer Motion**               | 12.6.2  | Animations et transitions                          |
+| **Lucide React**                | 1.8.0   | Icônes SVG                                         |
+| **React Icons**                 | 5.5.0   | Bibliothèque d'icônes complémentaire               |
+| **React Helmet Async**          | 3.0.0   | Gestion dynamique des meta tags SEO                |
+| **React CountUp**               | 6.5.3   | Animations de compteurs numériques                 |
+| **React Intersection Observer** | 10.0.3  | Détection de visibilité pour lazy-loading          |
+| **Vanilla CSS**                 | —       | Fichier `coreline.css` unique pour tout le styling |
+| **ESLint**                      | 9.21.0  | Linting du code                                    |
 
-#### 1. Actualités (`components/admin-panel/ActualitesTab.jsx`)
-- **Création d'articles** avec titre, catégorie, description
-- **Upload d'images** avec prévisualisation
-- **Gestion de sources multiples** (ajout/suppression dynamique)
-- **Catégories disponibles**: Études, Analyses & tendances, Évènements
-- **Actions**: Créer, modifier, supprimer avec confirmation
+---
 
-#### 2. Produits (`components/admin-panel/ProduitsTab.jsx`)
-- **Gestion complète des produits** (nom, accroche, description)
-- **Upload d'images produits**
-- **Avantages multiples** ajoutables dynamiquement
-- **Interface tableau responsive**
-- **Modales d'édition** avec validation
+## Prérequis
 
-#### 3. Contacts (`components/admin-panel/ContactsTab.jsx`)
-- **Visualisation des messages** de contact du site
-- **Champs**: nom, email, téléphone, objet, message
-- **Gestion des demandes** (consultation, modification, suppression)
-- **Historique avec dates** de création/modification
+- **Node.js 18+** et **npm**
+- Le [backend FastAPI](../server/README.md) en fonctionnement (pour le formulaire de contact)
 
-#### 4. Administrateurs (`components/admin-panel/AdminsTab.jsx`)
-- **Création de comptes admin** (nom d'utilisateur, mot de passe)
-- **Gestion des permissions** administrateur
-- **Suppression sécurisée** avec confirmation
-- **Affichage des informations** de dernière connexion
+---
 
-### Sécurité Admin
-- **Authentification par token JWT**
-- **Validation côté client** avant envoi
-- **Protection des routes** sensibles
-- **Confirmation pour actions destructives**
-- **Gestion automatique des sessions**
+## Installation
 
-## Installation et Démarrage
+### 1. Se placer dans le dossier client
 
-### Prérequis
-- Node.js 18+ et npm
-- Backend API en fonctionnement
-- Configuration des variables d'environnement
-
-### Installation
 ```bash
-# Cloner le projet
-git clone [repository-url]
 cd client
-
-# Installer les dépendances
-npm install
-
-# Démarrer en développement
-npm run dev
 ```
 
-### Scripts Disponibles
+### 2. Installer les dépendances
+
 ```bash
-npm run dev      # Serveur de développement (port 5173)
-npm run build    # Build de production
-npm run preview  # Prévisualisation du build
-npm run lint     # Vérification du code
+npm install
 ```
+
+---
 
 ## Configuration
 
-### Variables d'Environnement
-Configurer l'URL de l'API backend dans `src/data/config.js`
+### Variables d'environnement
 
-### Authentification
-- Context d'authentification global (`src/context/AuthContext.jsx`)
-- Gestion automatique des tokens
-- Redirection et logout automatique
+Copier le fichier modèle et le personnaliser :
 
-## Architecture Admin
+```bash
+cp .env.example .env
+```
 
-### Flux d'Authentification
-1. **Login** → Vérification credentials → Stockage token
-2. **Navigation** → Vérification token → Accès aux fonctionnalités
-3. **Actions CRUD** → Validation → API call → Mise à jour interface
-4. **Logout** → Suppression token → Redirection
+| Variable       | Description            | Valeur par défaut       |
+| -------------- | ---------------------- | ----------------------- |
+| `VITE_API_URL` | URL du backend FastAPI | `http://localhost:8000` |
 
-### Gestion d'État
-- **React Context** pour l'authentification
-- **State local** pour les formulaires et modales
-- **Gestion d'erreurs** avec feedback utilisateur
-- **Loading states** pour les opérations asynchrones
+### Exemple `.env`
 
-## Déploiement
+```env
+VITE_API_URL=http://localhost:8000
+```
 
-### Build de Production
+> **Note :** Les variables Vite doivent être préfixées par `VITE_` pour être accessibles côté client via `import.meta.env`.
+
+---
+
+## Lancement
+
+### Développement
+
+```bash
+npm run dev
+```
+
+Le serveur de développement démarre sur **http://localhost:5173** avec hot-reload activé.
+
+### Prévisualisation du build
+
 ```bash
 npm run build
-# Génère le dossier dist/ prêt pour déploiement
+npm run preview
 ```
 
-### Docker
+---
+
+## Architecture du Projet
+
+```
+client/
+├── public/
+│   ├── assets/              # Images et logos du site
+│   ├── images/              # Images supplémentaires
+│   ├── robots.txt           # Règles pour les crawlers
+│   └── sitemap.xml          # Plan du site pour le SEO
+├── src/
+│   ├── main.jsx             # Point d'entrée — React + BrowserRouter + HelmetProvider
+│   ├── App.jsx              # Routeur principal et layout (Navbar + Routes + Footer)
+│   ├── coreline.css         # Feuille de styles globale unique
+│   ├── components/
+│   │   ├── common/
+│   │   │   └── SEO.jsx      # Composant SEO réutilisable (meta tags dynamiques)
+│   │   ├── home/
+│   │   │   ├── Hero.jsx             # Bannière d'accueil
+│   │   │   ├── BentoServices.jsx    # Grille de services style bento
+│   │   │   ├── MissionSection.jsx   # Section mission de l'alliance
+│   │   │   ├── ImpactMetrics.jsx    # Compteurs animés (impact)
+│   │   │   ├── Portfolio.jsx        # Projets et portfolio
+│   │   │   ├── TeamSection.jsx      # Présentation de l'équipe
+│   │   │   ├── CeoWord.jsx          # Mot du dirigeant
+│   │   │   ├── NewsSection.jsx      # Aperçu des actualités
+│   │   │   └── ContactSection.jsx   # Section contact en bas de page
+│   │   └── layout/
+│   │       ├── Navbar.jsx           # Barre de navigation responsive
+│   │       └── Footer.jsx           # Pied de page
+│   └── pages/
+│       ├── Home.jsx                     # Page d'accueil
+│       ├── AboutPage.jsx                # Page « À propos »
+│       ├── ServicePage.jsx              # Page des services
+│       ├── SolutionsPage.jsx            # Page solutions / portfolio
+│       ├── ContactPage.jsx              # Page contact avec formulaire
+│       ├── NewsPage.jsx                 # Liste des actualités
+│       ├── NewsDetailPage.jsx           # Détail d'un article
+│       ├── ProduitDetailPage.jsx        # Détail d'un produit
+│       ├── MentionsLegales.jsx          # Mentions légales
+│       ├── PolitiqueConfidentialite.jsx # Politique de confidentialité
+│       ├── ComingSoon.jsx               # Page « Bientôt disponible »
+│       └── NotFound.jsx                 # Page 404
+├── index.html           # HTML d'entrée avec meta tags SEO et CSP
+├── vite.config.js       # Configuration Vite
+├── eslint.config.js     # Configuration ESLint
+├── package.json         # Dépendances et scripts
+├── .env                 # Variables d'environnement (ignoré par git)
+└── .env.example         # Modèle de configuration
+```
+
+---
+
+## Pages et Routes
+
+| Route                        | Page                       | Description                               |
+| ---------------------------- | -------------------------- | ----------------------------------------- |
+| `/`                          | `Home`                     | Page d'accueil avec toutes les sections   |
+| `/about`                     | `AboutPage`                | Présentation de l'alliance et de l'équipe |
+| `/services`                  | `ServicePage`              | Détail des services proposés              |
+| `/solutions`                 | `ComingSoon`               | Portfolio des missions _(à venir)_        |
+| `/solutions/:id`             | `ComingSoon`               | Détail d'un projet _(à venir)_            |
+| `/actualites`                | `ComingSoon`               | Liste des actualités _(à venir)_          |
+| `/actualites/:id`            | `ComingSoon`               | Détail d'un article _(à venir)_           |
+| `/contact`                   | `ContactPage`              | Formulaire de contact                     |
+| `/mentions-legales`          | `MentionsLegales`          | Mentions légales                          |
+| `/politique-confidentialite` | `PolitiqueConfidentialite` | Politique de confidentialité              |
+| `*`                          | `NotFound`                 | Page 404                                  |
+
+> **Note :** Les pages marquées _« à venir »_ affichent un composant `ComingSoon` en attendant leur implémentation complète.
+
+---
+
+## Composants
+
+### Layout
+
+- **`Navbar`** — Navigation responsive avec menu burger mobile. Liens vers toutes les sections principales.
+- **`Footer`** — Pied de page avec liens utiles, informations de contact et copyright.
+
+### Home (sections de la page d'accueil)
+
+| Composant        | Description                                  |
+| ---------------- | -------------------------------------------- |
+| `Hero`           | Bannière principale avec titre et CTA        |
+| `BentoServices`  | Grille de services au format « bento grid »  |
+| `MissionSection` | Présentation de la mission de l'alliance     |
+| `ImpactMetrics`  | Compteurs animés (chiffres clés de l'impact) |
+| `Portfolio`      | Aperçu des projets et missions               |
+| `TeamSection`    | Présentation des membres de l'équipe         |
+| `CeoWord`        | Citation / mot du fondateur                  |
+| `NewsSection`    | Dernières actualités                         |
+| `ContactSection` | Mini formulaire de contact / CTA             |
+
+### Common
+
+- **`SEO`** — Composant réutilisable qui injecte dynamiquement les balises `<title>`, Open Graph et Twitter Card via `react-helmet-async`.
+
+---
+
+## SEO et Référencement
+
+Le site implémente une stratégie SEO complète :
+
+| Élément                     | Implémentation                                                    |
+| --------------------------- | ----------------------------------------------------------------- |
+| **Meta tags dynamiques**    | Composant `SEO.jsx` avec Helmet Async sur chaque page             |
+| **Open Graph**              | Tags OG pour Facebook et LinkedIn                                 |
+| **Twitter Cards**           | Tags `summary_large_image` pour Twitter                           |
+| **Content Security Policy** | CSP stricte définie dans `index.html`                             |
+| **Sitemap XML**             | `public/sitemap.xml` — plan du site pour les moteurs de recherche |
+| **robots.txt**              | `public/robots.txt` — autorise l'indexation complète              |
+| **Favicon**                 | Logo Coreline en format PNG                                       |
+| **Theme Color**             | `#cda141` (doré Coreline)                                         |
+| **Langue**                  | `<html lang="fr">`                                                |
+
+---
+
+## Sécurité Frontend
+
+| Mécanisme                         | Description                                                                                                                                                                       |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Content Security Policy (CSP)** | Politique restrictive dans `index.html` : scripts `self` uniquement, styles limités à `self` + Google Fonts, images limitées à `self` + Unsplash, connexions à `self` + Formspree |
+| **Referrer Policy**               | `strict-origin-when-cross-origin`                                                                                                                                                 |
+| **X-Content-Type-Options**        | `nosniff`                                                                                                                                                                         |
+| **Permissions Policy**            | Caméra, microphone et géolocalisation désactivés                                                                                                                                  |
+| **Frame Ancestors**               | `'none'` — empêche l'intégration en iframe                                                                                                                                        |
+| **Honeypot anti-spam**            | Champ caché `website` dans le formulaire de contact                                                                                                                               |
+| **Validation côté client**        | Regex email + champs obligatoires avant envoi au backend                                                                                                                          |
+| **Console stripping**             | `console.log` et `debugger` supprimés en build de production via esbuild                                                                                                          |
+
+---
+
+## Build de Production
+
 ```bash
-# Build de l'image
-docker build -t akiba-client .
-
-# Lancement
-docker run -p 80:80 akiba-client
+npm run build
 ```
 
-## Contribution
-1. Fork du projet
-2. Branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Commit (`git commit -m 'Ajout nouvelle fonctionnalité'`)
-4. Push (`git push origin feature/nouvelle-fonctionnalite`)
-5. Pull Request
+Le build optimisé est généré dans le dossier `dist/`. Il est prêt à être servi par n'importe quel serveur web statique.
+
+### Optimisations Vite
+
+- **Minification** via esbuild
+- **Suppression automatique** des `console` et `debugger` en production
+- **Tree-shaking** complet
+
+---
+
+## Scripts Disponibles
+
+| Commande          | Description                                   |
+| ----------------- | --------------------------------------------- |
+| `npm run dev`     | Lance le serveur de développement (port 5173) |
+| `npm run build`   | Génère le build de production dans `dist/`    |
+| `npm run preview` | Prévisualise le build de production           |
+| `npm run lint`    | Vérifie le code avec ESLint                   |
+
+---
 
 ## Support
-Pour toute question ou assistance technique, contactez l'équipe de développement AKIBA.
+
+Pour toute question technique, contactez l'équipe de développement **Coreline Alliance**.
