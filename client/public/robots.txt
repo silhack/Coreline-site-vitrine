@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://coreline.alliance/sitemap.xml
+Sitemap: https://coreline-partners.com/sitemap.xml
