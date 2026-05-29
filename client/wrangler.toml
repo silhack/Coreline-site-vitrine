@@ -1,6 +1,7 @@
 "$schema" = "./node_modules/wrangler/config-schema.json"
 name = "coreline"
-
+# Set this to today's date
+compatibility_date = "2026-05-29"
 
 [assets]
 not_found_handling = "single-page-application"
