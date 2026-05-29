@@ -1,5 +1,5 @@
 "$schema" = "./node_modules/wrangler/config-schema.json"
-name = "coreline"
+name = "coreline-patners"
 # Set this to today's date
 compatibility_date = "2026-05-29"
 
