@@ -936,6 +936,9 @@ header.scrolled {
   transition: var(--transition);
   outline: none;
   width: 100%;
+}
+
+.form-group textarea {
   resize: vertical;
 }
 
@@ -1214,10 +1217,22 @@ footer {
   }
   .cta-group {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    width: 100%;
+    gap: 1rem;
+  }
+  .cta-group .btn-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
   .btn-ghost {
     margin-left: 0;
+    border: 1.5px solid var(--secondary);
+    padding: 0.75rem 1.6rem;
+    border-radius: 99px;
+    justify-content: center;
   }
   .stat-number {
     font-size: 2rem;
@@ -1424,14 +1439,27 @@ footer {
 /* --- Contact Section (Aligned with Refactor) --- */
 .contact-section {
   background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-dark) 100%);
-  padding: 8rem 0;
+  padding: 5rem 0;
+}
+
+@media (min-width: 768px) {
+  .contact-section {
+    padding: 8rem 0;
+  }
 }
 
 .contact-layout {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 5rem;
+  grid-template-columns: 1fr;
+  gap: 3rem;
   align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+  }
 }
 
 .contact-text {
@@ -1507,17 +1535,24 @@ footer {
 .contact-form {
   background: var(--white);
   border-radius: var(--radius-lg);
-  padding: 3.5rem;
+  padding: 2rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 768px) {
+  .contact-form {
+    padding: 3.5rem;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .contact-form .full-width,
 
 .contact-form .btn-contact {
-  grid-column: span 2;
+  grid-column: 1 / -1;
 }
 
 .form-group {
@@ -1571,10 +1606,36 @@ footer {
 
 /* Contact form overrides */
 .contact-form .full-width {
-  grid-column: span 2;
+  grid-column: 1 / -1;
 }
 
 .contact-form textarea {
   min-height: 180px !important;
   resize: vertical;
+}
+
+/* --- Contact Page --- */
+.contact-page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 992px) {
+  .contact-page-grid {
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 4rem;
+  }
+}
+
+.contact-page-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .contact-page-form-row {
+    grid-template-columns: 1fr 1fr;
+  }
 }

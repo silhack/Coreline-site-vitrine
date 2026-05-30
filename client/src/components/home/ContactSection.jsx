@@ -112,7 +112,7 @@ const ContactSection = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               style={{
-                gridColumn: 'span 2',
+                gridColumn: '1 / -1',
                 padding: '1rem',
                 borderRadius: '8px',
                 marginBottom: '1rem',

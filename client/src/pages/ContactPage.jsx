@@ -118,18 +118,12 @@ const ContactPage = () => {
             </p>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)',
-              gap: '4rem',
-            }}
-          >
+          <div className="contact-page-grid">
             {/* Form Column */}
             <motion.div
               style={{
                 backgroundColor: 'var(--white)',
-                padding: '3rem',
+                padding: 'clamp(1.5rem, 5vw, 3rem)',
                 borderRadius: 'var(--radius-lg)',
                 boxShadow: 'var(--shadow-premium)',
                 border: '1px solid var(--gray-100)',
@@ -171,7 +165,7 @@ const ContactPage = () => {
                   autoComplete="off"
                 />
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                <div className="contact-page-form-row">
                   <div className="form-group">
                     <label
                       htmlFor={`${formId}-firstname`}
