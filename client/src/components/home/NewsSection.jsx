@@ -5,7 +5,7 @@ const NewsSection = () => {
   const news = [
     {
       imgUrl:
-        'https://images.unsplash.com/photo-1623943886230-0104690464c6?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80',
       category: 'Marché',
       title: "La Côte d'Ivoire consolide sa position mondiale",
       description: 'Analyse des opportunités record dans la filière cajou cette année.',
