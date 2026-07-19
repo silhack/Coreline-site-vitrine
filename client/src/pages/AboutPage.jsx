@@ -19,14 +19,7 @@ const AboutPage = () => {
       {/* 1. Hero / Executive Summary */}
       <section className="section">
         <div className="container">
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '4rem',
-              alignItems: 'center',
-            }}
-          >
+          <div className="grid-2">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -37,11 +30,11 @@ const AboutPage = () => {
               </span>
               <h1
                 style={{
-                  fontSize: '3rem',
-                  fontWeight: '800',
+                  fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                  fontWeight: '900',
                   color: 'var(--secondary)',
                   marginBottom: '1.5rem',
-                  lineHeight: '1.2',
+                  lineHeight: '1.1',
                 }}
               >
                 Catalyseur de <span style={{ color: 'var(--primary)' }}>Projets Durables</span>
@@ -60,7 +53,7 @@ const AboutPage = () => {
               </p>
               <div style={{ display: 'flex', gap: '2rem' }}>
                 <div>
-                  <h4 style={{ fontSize: '2rem', color: 'var(--primary)', margin: 0 }}>3</h4>
+                  <h4 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', color: 'var(--primary)', margin: 0 }}>3</h4>
                   <p
                     style={{
                       color: 'var(--gray-500)',
@@ -73,7 +66,7 @@ const AboutPage = () => {
                   </p>
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '2rem', color: 'var(--primary)', margin: 0 }}>2026</h4>
+                  <h4 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', color: 'var(--primary)', margin: 0 }}>2026</h4>
                   <p
                     style={{
                       color: 'var(--gray-500)',
@@ -109,14 +102,7 @@ const AboutPage = () => {
       {/* 2. Notre point de départ */}
       <section className="section section-alt">
         <div className="container">
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)',
-              gap: '4rem',
-              alignItems: 'center',
-            }}
-          >
+          <div className="grid-2">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -125,7 +111,7 @@ const AboutPage = () => {
             >
               <h3
                 style={{
-                  fontSize: '2rem',
+                  fontSize: 'clamp(1.5rem, 4vw, 2rem)',
                   fontWeight: '800',
                   marginBottom: '1.5rem',
                   color: 'var(--secondary)',
@@ -233,15 +219,7 @@ const AboutPage = () => {
             </p>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '2rem',
-              maxWidth: '900px',
-              margin: '0 auto',
-            }}
-          >
+          <div className="corelines-grid">
             <motion.div
               style={{
                 padding: '2.5rem',
